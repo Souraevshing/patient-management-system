@@ -4,25 +4,25 @@ A RESTful API service that simulates the management of patient queues in an emer
 
 ## Project Structure
 
-\`\`\`
-/
+```bash
 ├── src/
+|   |-- config/         # Configuration files
+|   |-- constants/      # Constants
 │   ├── controllers/    # Handle request/response logic
+│   ├── middlewares/    # Custom middleware
 │   ├── models/         # Data models and business logic
 │   ├── routes/         # Route definitions
-│   ├── middlewares/     # Custom middleware
-│   ├── utils/          # Utility functions
-│   ├── services/       # Business logic services
-│   ├── config/         # Configuration files
+│   ├─- services/       # Business logic services
+|   |-- tests/          # Test files
 │   ├── types/          # TypeScript type definitions
+│   ├── utils/          # Utility functions
 │   ├── app.ts          # Main application file
-│   └── index.ts       # Server startup file
-├── tests/              # Test files
+│   └── index.ts        # Server startup file
 ├── dist/               # Compiled JavaScript files
 ├── tsconfig.json       # TypeScript configuration
 |-- nodemon.json        # nodemon configuration to run app in development mode
 └── package.json        # Project metadata
-\`\`\`
+```
 
 ## Features
 
@@ -39,17 +39,15 @@ A RESTful API service that simulates the management of patient queues in an emer
 
 #### Add a patient to the queue
 
-\`\`\`
+```bash
 POST /patients
-\`\`\`
 Request body:
-\`\`\`json
 {
   "name": "John Doe",
   "condition": "Chest pain",
   "triageLevel": 2
 }
-\`\`\`
+```
 
 - `name`: Patient name (required)
 - `condition`: Medical condition (required)
@@ -57,77 +55,71 @@ Request body:
 
 #### Get the current queue
 
-\`\`\`
+```bash
 GET /patients
-\`\`\`
 Returns an array of patients in the queue with their details and estimated wait times.
+```
 
 #### Move a patient to "being treated" status
 
-\`\`\`
+```bash
 PUT /patients/:id/treat
-\`\`\`
 Moves the specified patient from the waiting queue to being treated.
+```
 
 #### Discharge a patient
 
-\`\`\`
+```bash
 PUT /patients/:id/discharge
-\`\`\`
 Marks the specified patient as discharged.
+```
 
 ### Statistics and Simulation
 
 #### Get system statistics
 
-\`\`\`
+```bash
 GET /stats
-\`\`\`
 Returns statistics about the current state of the ER.
+```
 
 #### Update staff count
 
-\`\`\`
+```bash
 PUT /stats/staff
-\`\`\`
 Request body:
-\`\`\`json
 {
   "count": 5
 }
-\`\`\`
+```
+
 Updates the number of staff members available.
 
 #### Start simulation mode
 
-\`\`\`
+```bash
 POST /simulation/start
-\`\`\`
-Request body:
-\`\`\`json
 {
   "duration": 60,
   "patientsPerMinute": 1
 }
-\`\`\`
+```
 
 - `duration`: Simulation duration in minutes (default: 60)
 - `patientsPerMinute`: Average number of patients to generate per minute (default: 1)
 
 #### Stop simulation mode
 
-\`\`\`
+```bash
 POST /simulation/stop
-\`\`\`
 Stops an ongoing simulation.
+```
 
 ## API Documentation
 
 The API is documented using Swagger/OpenAPI. You can access the interactive documentation at:
 
-\`\`\`
-<http://localhost:3000/api-docs>
-\`\`\`
+`http://localhost:3000/api-docs`
 
 This provides a user-friendly interface to:
 
@@ -153,9 +145,9 @@ The API uses Socket.io for real-time notifications. Connect to the WebSocket end
 
 All API endpoints require authentication using a Bearer token:
 
-\`\`\`
+```bash
 Authorization: Bearer er-api-token
-\`\`\`
+```
 
 ## Rate Limiting
 
@@ -164,30 +156,34 @@ The API implements rate limiting to prevent abuse. Each IP address is limited to
 ## Running the Application
 
 1. Install dependencies:
-\`\`\`
-npm install
-\`\`\`
+
+    ```bash
+    npm install
+    ```
 
 2. Build the TypeScript code:
-\`\`\`
-npm run build
-\`\`\`
+
+    ```bash
+    npm run build
+    ```
 
 3. Start the server:
-\`\`\`
-npm start
-\`\`\`
+
+    ```bash
+    npm start
+    ```
 
 4. For development with auto-restart:
-\`\`\`
-npm run dev
-\`\`\`
 
-## Running Tests
+    ```bash
+    npm run dev
+    ```
 
-\`\`\`
-npm test
-\`\`\`
+5. Running Tests
+
+    ```bash
+    npm test
+    ```
 
 ## Technical Implementation
 
