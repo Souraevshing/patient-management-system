@@ -1,6 +1,5 @@
 import type { PatientData, ValidationResult } from "../types/index.js";
 
-// Validate patient data
 export const validatePatientData = (data: PatientData): ValidationResult => {
   const errors: string[] = [];
 

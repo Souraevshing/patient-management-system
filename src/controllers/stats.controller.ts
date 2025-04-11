@@ -1,14 +1,13 @@
 import type { Request, Response } from "express";
-import { getStatistics } from "../services/patientService.js";
-import { getStaffCount, updateStaffCount } from "../utils/staffingUtils.js";
 
-// Get system statistics
+import { getStatistics } from "../services/patient.service.js";
+import { getStaffCount, updateStaffCount } from "../utils/staffing.util.js";
+
 export const getStatsController = (req: Request, res: Response): void => {
   const stats = getStatistics();
   res.json(stats);
 };
 
-// Update staff count
 export const updateStaffCountController = (
   req: Request,
   res: Response

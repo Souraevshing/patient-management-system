@@ -1,31 +1,28 @@
 import type { Request, Response } from "express";
+
 import {
   addPatient,
   dischargePatient,
   getQueuedPatients,
   moveToTreatment,
-} from "../services/patientService.js";
+} from "../services/patient.service.js";
 import type { PatientData } from "../types/index.js";
-import { validatePatientData } from "../utils/validators.js";
+import { validatePatientData } from "../utils/validators.util.js";
 
-// Add a new patient to the queue
 export const addPatientController = (req: Request, res: Response): void => {
   const patientData = req.body as PatientData;
 
-  // Validate input
   const validation = validatePatientData(patientData);
   if (!validation.isValid) {
     res.status(400).json({ errors: validation.errors });
     return;
   }
 
-  // Add patient
   const patient = addPatient(patientData);
 
   res.status(201).json(patient);
 };
 
-// Get all patients in the queue
 export const getQueuedPatientsController = (
   req: Request,
   res: Response
@@ -34,7 +31,6 @@ export const getQueuedPatientsController = (
   res.json(patients);
 };
 
-// Move a patient to treatment
 export const moveToTreatmentController = (
   req: Request,
   res: Response
@@ -51,7 +47,6 @@ export const moveToTreatmentController = (
   res.json(patient);
 };
 
-// Discharge a patient
 export const dischargePatientController = (
   req: Request,
   res: Response

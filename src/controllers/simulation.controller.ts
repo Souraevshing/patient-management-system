@@ -3,10 +3,9 @@ import type { Request, Response } from "express";
 import {
   startSimulation,
   stopSimulation,
-} from "../services/simulationService.js";
+} from "../services/simulation.service.js";
 import type { SimulationOptions } from "../types/index.js";
 
-// Start a simulation
 export const startSimulationController = (
   req: Request,
   res: Response
@@ -21,7 +20,6 @@ export const startSimulationController = (
   res.json(result);
 };
 
-// Stop a simulation
 export const stopSimulationController = (req: Request, res: Response): void => {
   const result = stopSimulation();
 
