@@ -51,6 +51,32 @@ export const startSimulationController = (
   res.json(result);
 };
 
+/**
+ * @swagger
+ * /simulation/stop:
+ *   post:
+ *     summary: Stop a running simulation
+ *     tags: [Simulation]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Simulation stopped
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Simulation stopped
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 export const stopSimulationController = (req: Request, res: Response): void => {
   const result = stopSimulation();
 

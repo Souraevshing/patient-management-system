@@ -12,5 +12,5 @@ const io = new Server(server);
 initSocketIO(io);
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.info(`Server running on port ${PORT}`);
 });

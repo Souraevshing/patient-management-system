@@ -9,20 +9,20 @@ import statsRoutes from "./stats.route.js";
  * @swagger
  * /:
  *   get:
- *     summary: Welcome message
- *     description: Returns a welcome message for the API
+ *     summary: Server health check
+ *     description: Returns server health status
  *     responses:
  *       200:
- *         description: Welcome message
+ *         description: Server health
  *         content:
  *           text/plain:
  *             schema:
  *               type: string
- *               example: ER Queue Management API
+ *               example: Patient Management API
  */
 export const setupRoutes = (app: Application): void => {
   app.get("/", (req, res) => {
-    res.send("ER Queue Management API");
+    res.send("Server running successfully");
   });
 
   app.use("/auth", authRoutes);
