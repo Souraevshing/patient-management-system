@@ -3,15 +3,13 @@ import express from "express";
 import {
   getStatsController,
   updateStaffCountController,
-} from "../controllers/statsController.js";
-import { authMiddleware } from "../middleware/auth.js";
+} from "../controllers/stats.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Apply auth middleware to all routes
 router.use(authMiddleware);
 
-// Routes
 router.get("/", getStatsController);
 router.put("/staff", updateStaffCountController);
 

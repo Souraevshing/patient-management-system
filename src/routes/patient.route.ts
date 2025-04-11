@@ -5,15 +5,13 @@ import {
   dischargePatientController,
   getQueuedPatientsController,
   moveToTreatmentController,
-} from "../controllers/patientController.js";
-import { authMiddleware } from "../middleware/auth.js";
+} from "../controllers/patient.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Apply auth middleware to all routes
 router.use(authMiddleware);
 
-// Routes
 router.post("/", addPatientController);
 router.get("/", getQueuedPatientsController);
 router.put("/:id/treat", moveToTreatmentController);

@@ -1,16 +1,14 @@
 import type { Application } from "express";
 
-import patientRoutes from "./patientRoutes.js";
-import simulationRoutes from "./simulationRoutes.js";
-import statsRoutes from "./statsRoutes.js";
+import patientRoutes from "./patient.route.js";
+import simulationRoutes from "./simulation.route.js";
+import statsRoutes from "./stats.route.js";
 
 export const setupRoutes = (app: Application): void => {
-  // Home route
   app.get("/", (req, res) => {
-    res.send("ER Queue Management API");
+    res.send("Server running successfully");
   });
 
-  // API routes
   app.use("/patients", patientRoutes);
   app.use("/stats", statsRoutes);
   app.use("/simulation", simulationRoutes);

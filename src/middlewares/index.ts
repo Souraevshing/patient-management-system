@@ -1,7 +1,7 @@
 import express, { type Application } from "express";
 
-import { loggerMiddleware } from "./logger.js";
-import { rateLimiter } from "./rateLimiter.js";
+import { loggerMiddleware } from "../middlewares/logger.middleware.js";
+import { rateLimiter } from "../middlewares/rate-limiter.middleware.js";
 
 export const setupMiddleware = (app: Application): void => {
   app.use(express.json());

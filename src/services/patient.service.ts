@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import patientStore from "../models/PatientStore.js";
+
+import patientStore from "../models/patient-store.model.js";
 import type {
   CriticalPatientEvent,
   Patient,
@@ -7,11 +8,10 @@ import type {
   StaffingThresholdEvent,
   WaitTimeUpdate,
 } from "../types/index.js";
-import { checkStaffingThreshold } from "../utils/staffingUtils.js";
-import { calculateWaitTimeEstimate } from "../utils/waitTimeCalculator.js";
-import { emitEvent } from "./socketService.js";
+import { checkStaffingThreshold } from "../utils/staffing.util.js";
+import { calculateWaitTimeEstimate } from "../utils/wait-time-calculator.util.js";
+import { emitEvent } from "./socket.service.js";
 
-// Add a new patient to the queue
 export const addPatient = (patientData: PatientData): Patient => {
   const { name, condition, triageLevel } = patientData;
 
@@ -25,13 +25,10 @@ export const addPatient = (patientData: PatientData): Patient => {
     estimatedWaitTime: 0,
   };
 
-  // Add to queue
   patientStore.addPatient(patient);
 
-  // Calculate initial wait time estimate
   patient.estimatedWaitTime = calculateWaitTimeEstimate(patient);
 
-  // Check if this is a critical patient (level 1)
   if (triageLevel === 1) {
     const criticalEvent: CriticalPatientEvent = {
       message:
@@ -41,7 +38,6 @@ export const addPatient = (patientData: PatientData): Patient => {
     emitEvent("criticalPatient", criticalEvent);
   }
 
-  // Check staffing threshold
   if (checkStaffingThreshold()) {
     const staffingEvent: StaffingThresholdEvent = {
       message: "WARNING: Patient-to-staff ratio has exceeded safe levels",
@@ -50,18 +46,15 @@ export const addPatient = (patientData: PatientData): Patient => {
     emitEvent("staffingThresholdExceeded", staffingEvent);
   }
 
-  // Update all wait times and emit queue update
   updateWaitTimeEstimates();
   emitEvent("queueUpdate", patientStore.getQueuedPatients());
 
   return patient;
 };
 
-// Get all patients in the queue with updated wait times
 export const getQueuedPatients = (): Patient[] => {
   const patients = patientStore.getQueuedPatients();
 
-  // Update wait time estimates before sending
   patients.forEach((patient) => {
     patient.estimatedWaitTime = calculateWaitTimeEstimate(patient);
   });
@@ -69,15 +62,12 @@ export const getQueuedPatients = (): Patient[] => {
   return patients;
 };
 
-// Move a patient to treatment
 export const moveToTreatment = (id: string): Patient | null => {
   const patient = patientStore.moveToTreatment(id);
 
   if (patient) {
-    // Update wait times for remaining patients
     updateWaitTimeEstimates();
 
-    // Emit queue updates
     emitEvent("queueUpdate", patientStore.getQueuedPatients());
     emitEvent("patientTreating", {
       message: `Patient ${patient.name} is now being treated`,
@@ -88,18 +78,15 @@ export const moveToTreatment = (id: string): Patient | null => {
   return patient;
 };
 
-// Discharge a patient
 export const dischargePatient = (id: string): Patient | null => {
   const patient = patientStore.dischargePatient(id);
 
   if (patient) {
-    // Emit updates
     emitEvent("patientDischarged", {
       message: `Patient ${patient.name} has been discharged`,
       patient,
     });
 
-    // Check staffing threshold
     if (!checkStaffingThreshold()) {
       emitEvent("staffingNormalized", {
         message: "Patient-to-staff ratio has returned to safe levels",
@@ -111,7 +98,6 @@ export const dischargePatient = (id: string): Patient | null => {
   return patient;
 };
 
-// Get system statistics
 export const getStatistics = () => {
   const counts = patientStore.getCounts();
 
@@ -123,7 +109,6 @@ export const getStatistics = () => {
   };
 };
 
-// Update wait time estimates for all patients in queue
 export const updateWaitTimeEstimates = (): Patient[] => {
   const patients = patientStore.getQueuedPatients();
 
@@ -131,12 +116,11 @@ export const updateWaitTimeEstimates = (): Patient[] => {
     patient.estimatedWaitTime = calculateWaitTimeEstimate(patient);
   });
 
-  // Emit updated wait times
   const waitTimeUpdates: WaitTimeUpdate[] = patients.map((p) => ({
     id: p.id,
     name: p.name,
     triageLevel: p.triageLevel,
-    waitTime: Math.ceil(p.estimatedWaitTime / 60000), // Convert to minutes
+    waitTime: Math.ceil(p.estimatedWaitTime / 60000),
   }));
 
   emitEvent("waitTimeUpdates", waitTimeUpdates);
@@ -144,7 +128,6 @@ export const updateWaitTimeEstimates = (): Patient[] => {
   return patients;
 };
 
-// Calculate patient to staff ratio
 export const calculatePatientToStaffRatio = (): number => {
   const counts = patientStore.getCounts();
   return (
@@ -152,7 +135,6 @@ export const calculatePatientToStaffRatio = (): number => {
   );
 };
 
-// Declare global staffCount
 declare global {
   var staffCount: number;
 }
