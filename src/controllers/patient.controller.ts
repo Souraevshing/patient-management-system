@@ -9,6 +9,40 @@ import {
 import type { PatientData } from "../types/index.js";
 import { validatePatientData } from "../utils/validators.util.js";
 
+/**
+ * @swagger
+ * /patients:
+ *   post:
+ *     summary: Add a new patient to the queue
+ *     tags: [Patients]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PatientInput'
+ *     responses:
+ *       201:
+ *         description: Patient added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Patient'
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 export const addPatientController = (req: Request, res: Response): void => {
   const patientData = req.body as PatientData;
 

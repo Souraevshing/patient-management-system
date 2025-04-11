@@ -5,6 +5,17 @@ export const loggerMiddleware = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  console.info(
+    `${new Date().toISOString()} - ${req.method} ${req.url} ${req.ip}`
+  );
+
+  res.on("finish", () => {
+    console.info(
+      `${new Date().toISOString()} - ${req.method} ${res.statusCode} ${
+        req.url
+      } ${req.ip}`
+    );
+  });
+
   next();
 };

@@ -6,6 +6,37 @@ import {
 } from "../services/simulation.service.js";
 import type { SimulationOptions } from "../types/index.js";
 
+/**
+ * @swagger
+ * /simulation/start:
+ *   post:
+ *     summary: Start a simulation
+ *     tags: [Simulation]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SimulationOptions'
+ *     responses:
+ *       200:
+ *         description: Simulation started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Simulation started for 60 minutes with ~1 patients per minute
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 export const startSimulationController = (
   req: Request,
   res: Response

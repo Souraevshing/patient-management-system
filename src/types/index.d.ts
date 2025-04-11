@@ -72,3 +72,19 @@ export interface WaitTimeUpdate {
 export interface SimulationEndedEvent {
   message: string;
 }
+
+export interface MessageResponse {
+  message: string;
+}
+
+export interface StaffCountResponse extends MessageResponse {
+  staffCount: number;
+}
+
+export interface ErrorResponse {
+  error: string;
+}
+
+export interface ValidationErrorResponse {
+  errors: string[];
+}

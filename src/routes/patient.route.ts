@@ -8,6 +8,12 @@ import {
 } from "../controllers/patient.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Patients
+ *   description: Patient management endpoints
+ */
 const router = express.Router();
 
 router.use(authMiddleware);

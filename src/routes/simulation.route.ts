@@ -6,6 +6,12 @@ import {
 } from "../controllers/simulation.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Simulation
+ *   description: Simulation control endpoints
+ */
 const router = express.Router();
 
 router.use(authMiddleware);
