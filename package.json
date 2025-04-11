@@ -28,6 +28,7 @@
   "license": "ISC",
   "description": "Patient management system built with Node.js, TypeScript, Express.js, and Socket.io. It provides a RESTful API for managing patient records and real-time updates using WebSockets.",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
@@ -37,6 +38,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",

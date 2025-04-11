@@ -1,7 +1,7 @@
 import {
   ADDITIONAL_WAIT_PER_PATIENT,
   BASE_WAIT_TIMES,
-} from "../config/constants.js";
+} from "../constants/index.constant.js";
 import patientStore from "../models/patient-store.model.js";
 import type { Patient } from "../types/index.js";
 

@@ -1,7 +1,7 @@
 import {
   DEFAULT_STAFF_COUNT,
   MAX_PATIENT_TO_STAFF_RATIO,
-} from "../config/constants.js";
+} from "../constants/index.constant.js";
 import patientStore from "../models/patient-store.model.js";
 
 global.staffCount = DEFAULT_STAFF_COUNT;

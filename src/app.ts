@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { type Application } from "express";
 import swaggerUI from "swagger-ui-express";
 
@@ -12,6 +13,14 @@ setupMiddleware(app);
 
 setupRoutes(app);
 
+app.use(
+  cors({
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["http://localhost:5000", "https://localhost:5000"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use(errorHandler);
 
