@@ -35,6 +35,18 @@ A RESTful API service that simulates the management of patient queues in an emer
 
 ## API Endpoints
 
+### Authentication
+
+```bash
+Note: To generate jwt token to access all the protected apis
+POST /auth/token
+Request body:
+{
+  "username": "admin",
+  "password": "password"
+}
+```
+
 ### Patient Management
 
 #### Add a patient to the queue
@@ -119,7 +131,7 @@ Stops an ongoing simulation.
 
 The API is documented using Swagger/OpenAPI. You can access the interactive documentation at:
 
-`http://localhost:3000/api-docs`
+`http://localhost:5000/api-docs`
 
 This provides a user-friendly interface to:
 

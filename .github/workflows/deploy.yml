@@ -6,7 +6,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+
     steps:
       - uses: actions/checkout@v3
 
@@ -17,13 +18,8 @@ jobs:
           echo "JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }}" >> .env
           echo "API_TOKEN=${{ secrets.API_TOKEN }}" >> .env
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+      - name: Build and Deploy with Docker Compose
+        run: |
+          docker-compose down
+          docker-compose build
+          docker-compose up -d --remove-orphans
