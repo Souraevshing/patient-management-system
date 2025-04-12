@@ -1,3 +1,5 @@
+[![Deploy](https://github.com/Souraevshing/patient-management-system/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/Souraevshing/patient-management-system/actions/workflows/deploy.yml)
+
 # Patient Management API
 
 A RESTful API service that simulates the management of patient queues in an emergency room setting. This system implements a priority queue based on triage levels and wait times, with real-time notifications for critical events.
